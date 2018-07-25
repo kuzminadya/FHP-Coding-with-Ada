@@ -1,57 +1,61 @@
 <html>
-  <head>
-    <title>My A-Frame Scene</title>
-		<script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
-		<script src="./build.js"></script>
-		<script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.4.8/aframe/build/aframe-ar.js"></script>
-	</head>
-	
-  <body style='margin : 0px; overflow: hidden;'>
-		<script>
-			// document.addEventListener('keydown', function(event) {
-			// document.querySelectorAll('.listenonkey').forEach(function(obj){
-			// 	obj.setAttribute('visible', false);
-			// });
-			// });
 
-			AFRAME.registerComponent('markerhandler', { 
-				tick:function() {
-					console.log(document.querySelector('[camera]'));
-					if(document.querySelector('#hiroM').object3D.visible == true) {
-						console.log("visible")}
-					// if(document.querySelector('a-marker').object3D.visible == false) {
-					// 	console.log("invisible")}
-					else { 
-						console.log("else"); 
-					} } });
-		</script> 
+<head>
+	<title>FHP Coding with Ada</title>
+	<script src="assets/aframe.min.js"></script>
+	<script src="assets/text-geometry.js"></script>
+	<script src="assets/aframe-ar.min.js"></script>
+</head>
 
-		<a-scene embedded arjs='sourceType: webcam;'>
-			
-			<a-assets>
-				<a-asset-item id="iverni" src="assets/iverni_normal_regular.typeface.json"></a-asset-item>
-			</a-assets>
-					<!-- <a-box position="1 0.5 2" rotation="0 45 0" color="#4CC3D9"></a-box>
-					<a-sphere position="0 1.25 0" radius="0.5" color="#EF2D5E"></a-sphere>
-					<a-cylinder position="-1 0.75 -2" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder> -->
-			<a-marker preset='hiro' id="hiroM">
-				<a-entity 
-					text-geometry="value: Coding with Ada; font: #iverni; size: 0.5;"
-					material="color: #f4efef"
-					position="0 0 0" rotation="250 20 0"
-					markerhandler>
-				</a-entity>
-			</a-marker>  
+<script>
+	document.addEventListener('keydown', function(event) {
+		document.querySelectorAll('#parent').forEach(function(obj){
+			obj.setAttribute('visible', false);
+		});
+		document.querySelectorAll('#child1').forEach(function(obj){
+			obj.setAttribute('position', {x: 0, y: 0.2, z: -1});
+		});
+		document.querySelectorAll('#child2').forEach(function(obj){
+			obj.setAttribute('position', {x: 0, y: 0.2, z: 0});
+		});
+		document.querySelectorAll('#child3').forEach(function(obj){
+			obj.setAttribute('position', {x: 0, y: 0.2, z: 1});
+		});
+	});
+</script> 
 
-			<a-marker preset='kanji'>
-				<a-entity 
-					text-geometry="value: Second marker; font: #iverni; size: 0.3;"
-					material="color: #000000"
-					position="0 0 0" rotation="250 20 0">
-				</a-entity>
+
+<body style="margin: 0; overflow: hidden;">
+	<a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+
+		<a-assets>
+			<a-asset-item id="iverni" src="assets/iverni_normal_regular.typeface.json"></a-asset-item>
+			<img id="1image" src="assets/img/1.png">
+			<img id="2image" src="assets/img/2.png">
+			<img id="3image" src="assets/img/3.png">
+		</a-assets>
+
+		
+			<a-marker preset="hiro">
+				<a-plane rotation="-90 0 0" width="4" height="3" material="color: #f4efef; opacity: 0.7;" position="0 0 0"></a-plane>
+				<!-- <a-plane rotation="-90 0 0" width="4" height="1" material="color: #f4df42; opacity: 0.9;" position="0 0.2 0"></a-plane> -->
+				<a-entity id="parent" text-geometry="value: Coding with Ada; font: #iverni; size: 0.5;" material="color: #000000" position="-1.5 0.5 0.2"
+				rotation="-90 0 0"></a-entity>
+				
+				<a-image id="child1" src="#1image" position="3 0.2 -1" rotation="-90 0 0"></a-image>
+				<a-image id="child2" src="#2image" position="3 0.2 0" rotation="-90 0 0"></a-image>
+				<a-image id="child3" src="#3image" position="3 0.2 1" rotation="-90 0 0"></a-image>
+				
 			</a-marker>
+		
+		
+		<a-marker preset="kanji">
+			<a-entity text-geometry="value: HALLO SEVA; font: #iverni; size: 2;" material="color: #f4df42" position="-3 0 0" rotation="-90 0 0" ></a-entity>
+		</a-marker>
 
-			<a-entity camera></a-entity>
-		</a-scene>
-  </body>
+		<a-entity camera></a-entity>
+	</a-scene>
+
+</body>
+
 </html>
